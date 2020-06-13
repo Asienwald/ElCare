@@ -1,5 +1,7 @@
 package com.example.elcare.fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,9 @@ import com.example.elcare.R;
 import com.example.elcare.adapters.ChatAdapter;
 import com.example.elcare.cards.ChatBox;
 import com.example.elcare.itemdecoration.VerticalSpaceItemDecoration;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.watson.speech_to_text.v1.SpeechToText;
 
 import java.util.ArrayList;
 
@@ -75,7 +82,24 @@ public class SpeakFragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.home_fragment, CallFragment.newInstance()).commit();
             }
         });
+
+
+
+        // START CODE FOR AUDIO INPUT
+        // get permissions
+        int permission = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.d("DEBUG", "Permission to record denied");
+            // do code to request permission again
+        }
+
+        Authenticator authenticator = new IamAuthenticator("DN6Rcpw0ompIPp_QbCfRi5WlwFORljlvgMTWf2PjQfvG");
+        SpeechToText service = new SpeechToText(authenticator);
+
+
     }
+
 
     private void addChat(boolean byJolene, String msg){
         chatList.add(new ChatBox(msg, byJolene));

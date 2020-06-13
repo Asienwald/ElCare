@@ -42,5 +42,12 @@ public class MainFragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.home_fragment, ChatFragment.newInstance()).commit();
             }
         });
+        view.findViewById(R.id.speak_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.home_fragment, SpeakFragment.newInstance()).commit();
+            }
+        });
+
     }
 }

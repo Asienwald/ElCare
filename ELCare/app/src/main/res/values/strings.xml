@@ -14,4 +14,8 @@
     <string name="monitoring">Monitoring</string>
     <string name="sound">Sound</string>
     <string name="inactive">Inactive</string>
+    <string name="who_to_call">Who to call?</string>
+    <string name="call">Call</string>
+    <string name="police">Police</string>
+    <string name="ambulance">Ambulance</string>
 </resources>

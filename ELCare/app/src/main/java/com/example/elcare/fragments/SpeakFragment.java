@@ -21,10 +21,10 @@ import com.example.elcare.itemdecoration.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 
-public class ChatFragment extends Fragment {
+public class SpeakFragment extends Fragment {
 
-    public static ChatFragment newInstance() {
-        return new ChatFragment();
+    public static SpeakFragment newInstance() {
+        return new SpeakFragment();
     }
 
     private RecyclerView mRv;
@@ -37,7 +37,7 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.chat_fragment, container, false);
+        return inflater.inflate(R.layout.speak_fragment, container, false);
     }
 
     @Override
@@ -50,8 +50,6 @@ public class ChatFragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.home_fragment, MainFragment.newInstance()).commit();
             }
         });
-        EditText et = view.findViewById(R.id.et_msg);
-        et.setFilters(new InputFilter[]{});
 
         mRv = view.findViewById(R.id.chat_rv);
         mLayoutManager = new LinearLayoutManager(this.getContext());
@@ -65,12 +63,10 @@ public class ChatFragment extends Fragment {
         mRv.addItemDecoration(dividerItemDecoration);
 
 
-        view.findViewById(R.id.send_btn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.mic_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText et = view.findViewById(R.id.et_msg);
-                String msg = et.getText().toString();
-                sendMsg(msg);
+                sendMsg("yes hello");
             }
         });
         view.findViewById(R.id.call_btn).setOnClickListener(new View.OnClickListener() {
@@ -82,14 +78,6 @@ public class ChatFragment extends Fragment {
     }
 
     private void addChat(boolean byJolene, String msg){
-//        String cardColour, txtColour;
-//        if(!byJolene){
-//            cardColour = "#ffffff";
-//            txtColour = "#000000";
-//        }else{
-//            cardColour = "#50DAFF";
-//            txtColour = "#ffffff";
-//        }
         chatList.add(new ChatBox(msg, byJolene));
         mAdapter.notifyDataSetChanged();
     }

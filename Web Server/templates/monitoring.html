@@ -1,0 +1,23 @@
+
+<button onclick="start();">Start</button><br><br>
+<div>
+	<div><canvas id="canvas" width="0" height="0"></canvas></div>
+	<div id="label-container"></div>
+</div>
+<div>
+	Sound Level: 
+	<canvas id="meter" width="0" height="0"></canvas>
+	<div id="recordings"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+<script src="https://rawgit.com/mattdiamond/Recorderjs/master/dist/recorder.js"></script>
+<script src="{{url_for('static', filename='fall.js')}}"></script>
+<script src="{{url_for('static', filename='audio.js')}}"></script>
+<script>
+function start(){
+	init();
+	startAudio();
+}
+</script>

@@ -25,8 +25,8 @@ ESP8266WiFiMulti WiFiMulti;
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 //Variables
-float hum;  //Stores humidity value
-float temp; //Stores temperature value
+float hum=33;  //Stores humidity value
+float temp=27; //Stores temperature value
 void tempSensor(){
     hum = dht.readHumidity();
     temp= dht.readTemperature(false);
@@ -73,7 +73,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("SINGTEL-096A", "caezoengah");
+  WiFiMulti.addAP("#", "#");
   
 }
 
@@ -86,7 +86,7 @@ void loop() {
     passed = millis();
   }
   
-  tempSensor();
+  //tempSensor();
   soundsing();
   sensing();
 }
@@ -100,7 +100,7 @@ void wifi(){
 
     USE_SERIAL.print("[HTTP] begin...\n");
     // configure traged server and url
-    http.begin("http://192.168.1.82:5000/form");      //Specify request destination
+    http.begin("http://192.168.1.82:5000/hardware");      //Specify request destination
     //http.addHeader("Content-Type", "text/plain");  
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
    

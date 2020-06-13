@@ -13,6 +13,7 @@
 
 </head>
 <body>
+
 <!--Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">ELCare</a>
@@ -22,7 +23,13 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-			<a class="nav-link" href="/">Dashboard</a>
+			<a class="nav-link" href="#online-monitoring">Monitoring Data</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="#iot-devices">IOT Devices</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="/monitoring">Monitor with this Device</a>
           </li>
 		  <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
@@ -30,42 +37,61 @@
         </ul>
       </div>
     </nav>
-	
-	<br>
-<div class="content">
-	<h3>Monitoring</h3>
-	
-	<button class="btn btn-primary" onclick="start();">Start All</button>
-	<button class="btn btn-secondary" onclick="init();">Start Only Computer Vision</button>
-	<button class="btn btn-secondary" onclick="startAudio();">Start Only Loud Sound Detection</button>
+	<div class="content">
+		<br>
+		<h1>Dashboard</h1>
+		<br><br>
+
+		<div class="card project" id="online-monitoring">
+			<div class="card-header">Online Monitoring Data</div>
+			<div class="card-body" style="max-height:80vh;overflow-y: auto;">
+				<b>Fall Detected (Through Camera)</b>
+				<ul>
+					{% for fall in falls %}
+					<li>{{fall["text"]}}</li>
+					{% endfor %}
+				</ul>
+				
+				<b>Loud Sounds Detected</b>
+				<ul>
+					{% for sound in sounds %}
+					<li>{{sound["dateData"]["text"]}}</li>
+					{% endfor %}
+				</ul>
+				
+			</div>
+		</div>
+		<br><br>
+		
+		<div class="card project" id="iot-devices">
+			<div class="card-header">IOT Devices</div>
+			<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+					  <th scope="col">Property</th>
+					  <th scope="col">Value</th>
+					</tr>
+				</thead>
+					 <tr>
+						<td><img class="icon" src="{{url_for('static', filename='icons8-microphone-64.png')}}"/> Sound:</td>
+						<td>{{IOTView["sound"]}}</td>
+					</tr>
+					 <tr>
+						<td><img class="icon" src="{{url_for('static', filename='icons8-motion-detector-100.png')}}"/> Motion:</td>
+						<td>{{IOTView["motion"]}}</td>
+					</tr>
+					 <tr>
+						<td><img class="icon" src="{{url_for('static', filename='icons8-microphone-64.png')}}"/> Temperature:</td>
+						<td>{{IOTView["temperature"]}}</td>
+					</tr>
+			</div>
+			</table>
+		</div>
+
+		
+		
+	</div>
 	<br><br>
-	
-	<div>
-		<b>Computer Vision Fall Detection</b><br>
-		<div><canvas id="canvas" width="0" height="0"></canvas></div>
-		<div id="label-container"></div>
-	</div>
-	<br>
-	<div>
-		<b>Loud Sound Detection</b><br>
-		Sound Level: <canvas id="meter" width="0" height="0"></canvas><br>
-		Recordings (Most recent first):<br>
-		<div id="recordings" style="max-height:50vh;overflow-y:auto;"></div>
-	</div>
-</div>
-<br><br><br>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
-<script src="https://rawgit.com/mattdiamond/Recorderjs/master/dist/recorder.js"></script>
-<script src="{{url_for('static', filename='fall.js')}}"></script>
-<script src="{{url_for('static', filename='audio.js')}}"></script>
-<script>
-function start(){
-	init();
-	startAudio();
-}
-</script>
-
 </body>
 </html>

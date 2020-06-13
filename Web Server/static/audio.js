@@ -59,7 +59,7 @@ function volumeAudioProcess( event ) {
 var audioContext = null;
 var meter = null;
 var canvasContext = null;
-var WIDTH=500;
+var WIDTH=400;
 var HEIGHT=10;
 var rafID = null;
 
@@ -82,7 +82,8 @@ function startAudio() {
         navigator.getUserMedia = 
         	navigator.getUserMedia ||
         	navigator.webkitGetUserMedia ||
-        	navigator.mozGetUserMedia;
+        	navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia;
 
         // ask for an audio input
         navigator.getUserMedia(
@@ -149,7 +150,7 @@ function drawLoop( time ) {
 //////////////////////////////////////////////////////////
 
 function soundTriggerCondition(meter){
-	return meter.volume>0.5;//meter.checkClipping();
+	return meter.checkClipping();
  
 }
 

@@ -26,7 +26,7 @@ ESP8266WiFiMulti WiFiMulti;
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 //Variables
 float hum=33;  //Stores humidity value
-float temp=27; //Stores temperature value
+float temp=26; //Stores temperature value
 void tempSensor(){
     hum = dht.readHumidity();
     temp= dht.readTemperature(false);
@@ -73,7 +73,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("#", "#");
+  WiFiMulti.addAP("", "");
   
 }
 
@@ -100,7 +100,7 @@ void wifi(){
 
     USE_SERIAL.print("[HTTP] begin...\n");
     // configure traged server and url
-    http.begin("http://192.168.1.82:5000/hardware");      //Specify request destination
+    http.begin("http://scdf-x-ibm-web.herokuapp.com/hardware");      //Specify request destination
     //http.addHeader("Content-Type", "text/plain");  
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
    

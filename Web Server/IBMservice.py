@@ -3,12 +3,14 @@ import requests
 
 import json
 
-from IBM_API_KEYS import *
+from API_KEYS import *
 def SpeechToText(audioData, contentType='audio/wav'):
     print("Speech to Text:")
     headers = {'Content-type': contentType}
-    r = requests.post(url=STT_API_ENDPOINT+"/v1/recognize", auth=('apikey',STT_API_KEY), headers=headers, data=audioData)
-    print(r.text)
+    r = requests.post(url=STT_API_ENDPOINT+"/v1/recognize",
+                      auth=('apikey',STT_API_KEY),
+                      headers=headers, data=audioData)
+    #print(r.text)
     data = json.loads(r.text)
     try:
         text = data["results"][0]["alternatives"][0]["transcript"]
@@ -17,3 +19,14 @@ def SpeechToText(audioData, contentType='audio/wav'):
         text = ""
     return {"text":text, "fullData":data}
 
+
+def ToneAnalyser(text):
+    print("Tone Analyser:")
+    headers = {'Content-type': "application/json"}
+    r = requests.post(url=TA_API_ENDPOINT+"/v3/tone?version=2017-09-21",
+                      auth=('apikey',TA_API_KEY),
+                      headers=headers,
+                      data=json.dumps({"text":text}))
+    #print(r.text)
+    data = json.loads(r.text)
+    return {"fullData":data}

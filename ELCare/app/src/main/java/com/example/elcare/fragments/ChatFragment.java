@@ -196,8 +196,10 @@ public class ChatFragment extends Fragment {
                 Thread deleteSess = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
-                        assService.deleteSession(delOp).execute();
+                        if(sessionId != null){
+                            DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
+                            assService.deleteSession(delOp).execute();
+                        }
                     }
                 });
                 deleteSess.start();

@@ -1,5 +1,6 @@
 package com.example.elcare.adapters;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private ArrayList<ContactCard> mContactList;
+
+    private Context context;
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder{
 
@@ -52,6 +55,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card, parent, false);
         ContactViewHolder nvh = new ContactViewHolder(v);
+        context = parent.getContext();
         return nvh;
     }
 
@@ -74,6 +78,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             public void onClick(View v) {
                 // add code here to start calling whatever contact
                 Log.d("DEBUG", "onClick: start calling");
+                Toast.makeText(context, "Calling Contact", Toast.LENGTH_SHORT).show();
             }
         });
     }

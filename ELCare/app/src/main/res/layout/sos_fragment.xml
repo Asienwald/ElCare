@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/red">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="20dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:fontFamily="@font/neuemontreal"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/SOS"
+            android:textColor="@color/red"/>
+        
+        <ImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/danger"
+
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="An emergency has been detected"
+            android:fontFamily="@font/neuemontreal"
+            android:textSize="35sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Emergency contacts has been informed"
+            android:fontFamily="@font/neuemontreal"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Click the button below to call an ambulance and notify all users in the vicinity"
+            android:fontFamily="@font/neuemontreal"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <ImageView
+            android:id="@+id/sos_btn"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/sos"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/back"
+        android:layout_margin="20dp"
+        android:layout_gravity="end"/>
+
+</LinearLayout>

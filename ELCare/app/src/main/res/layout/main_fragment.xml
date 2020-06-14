@@ -165,7 +165,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/settings_btn"
+                android:id="@+id/call_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="122dp"
                 app:cardCornerRadius="10dp"
@@ -181,14 +181,14 @@
                     <ImageView
                         android:layout_width="54dp"
                         android:layout_height="54dp"
-                        android:src="@drawable/settings"
+                        android:src="@drawable/call"
                         android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/neuemontreal"
-                        android:text="@string/settings"
+                        android:text="@string/call"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"

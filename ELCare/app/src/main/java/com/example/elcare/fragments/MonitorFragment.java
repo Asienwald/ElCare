@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.elcare.MainActivity;
 import com.example.elcare.R;
 import com.google.gson.JsonObject;
 
@@ -77,6 +80,61 @@ public class MonitorFragment extends Fragment {
         motionMonitoring = view.findViewById(R.id.motion_status);
         soundStatus = view.findViewById(R.id.sound);
         soundMonitoring = view.findViewById(R.id.sound_status);
+
+        Switch tempSwitch = view.findViewById(R.id.temp_switch);
+        Log.d("DEBUG", "onViewCreated: " + MainActivity.tempMonitor);
+
+        tempSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    tempMonitoring.setText("Monitoring");
+                    tempMonitoring.setTextColor(getResources().getColor(R.color.green));
+                    MainActivity.tempMonitor = true;
+                }else{
+                    tempMonitoring.setText("Inactive");
+                    tempMonitoring.setTextColor(getResources().getColor(R.color.red));
+                    MainActivity.tempMonitor = false;
+                }
+            }
+        });
+        tempSwitch.setChecked(MainActivity.tempMonitor);
+
+        Switch motionSwitch = view.findViewById(R.id.motion_switch);
+
+        motionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    motionMonitoring.setText("Monitoring");
+                    motionMonitoring.setTextColor(getResources().getColor(R.color.green));
+                    MainActivity.motionMonitor = true;
+                }else{
+                    motionMonitoring.setText("Inactive");
+                    motionMonitoring.setTextColor(getResources().getColor(R.color.red));
+                    MainActivity.motionMonitor = false;
+                }
+            }
+        });
+        motionSwitch.setChecked(MainActivity.motionMonitor);
+
+        Switch soundSwitch = view.findViewById(R.id.sound_switch);
+
+        soundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    soundMonitoring.setText("Monitoring");
+                    soundMonitoring.setTextColor(getResources().getColor(R.color.green));
+                    MainActivity.soundMonitor = true;
+                }else{
+                    soundMonitoring.setText("Inactive");
+                    soundMonitoring.setTextColor(getResources().getColor(R.color.red));
+                    MainActivity.soundMonitor = false;
+                }
+            }
+        });
+        soundSwitch.setChecked(MainActivity.soundMonitor);
     }
 
     public class GetMonitorData extends AsyncTask<String, Void, JSONObject>{

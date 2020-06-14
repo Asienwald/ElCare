@@ -11,6 +11,10 @@ import com.example.elcare.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static boolean tempMonitor = true;
+    public static boolean motionMonitor = true;
+    public static boolean soundMonitor = true;
+
 
     public static MainActivity instance;
     // public FragmentManager fragmentManager = getSupportFragmentManager();

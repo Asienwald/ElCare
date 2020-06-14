@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/red">
+    android:background="@color/dark_blue">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,13 +23,13 @@
             android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:text="@string/SOS"
-            android:textColor="@color/red"/>
+            android:text="Calling All CFRs!"
+            android:textColor="@color/dark_blue"/>
         
         <ImageView
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:src="@drawable/danger"
+            android:src="@drawable/help"
 
             android:layout_alignParentEnd="true"/>
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="An emergency has been detected"
+            android:text="Someone in the vicinity has flagged an emergency!"
             android:fontFamily="@font/neuemontreal"
             android:textSize="35sp"
             android:layout_gravity="center"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Emergency contacts has been informed"
+            android:text="Help them!"
             android:fontFamily="@font/neuemontreal"
             android:textSize="20sp"
             android:layout_gravity="center"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Click the button below to call an ambulance and notify all users in the vicinity"
+            android:text="Click the button below to get their location"
             android:fontFamily="@font/neuemontreal"
             android:textSize="20sp"
             android:layout_gravity="center"
@@ -85,10 +85,10 @@
             android:layout_marginBottom="20dp"/>
 
         <ImageView
-            android:id="@+id/sos_btn"
+            android:id="@+id/locate_btn"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/sos"
+            android:src="@drawable/locate"
             android:layout_gravity="center"/>
     </LinearLayout>
 

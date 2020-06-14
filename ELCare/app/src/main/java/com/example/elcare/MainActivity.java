@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.elcare.fragments.MonitorFragment;
 import com.example.elcare.fragments.MainFragment;
+import com.example.elcare.fragments.ReceiveSosFragment;
 
 public class MainActivity extends AppCompatActivity {
 

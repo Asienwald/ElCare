@@ -36,7 +36,7 @@ We have designed the app ELCare to help the elderly in emergencies. Through it's
 
 ## Demo video
 
-[Watch the video](https://youtu.be/M_g4lS14vlk)
+[Watch the video](https://youtu.be/Jn1NrQctTA0)
 
 ## The architecture
 

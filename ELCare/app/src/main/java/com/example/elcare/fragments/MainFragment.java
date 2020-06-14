@@ -49,5 +49,17 @@ public class MainFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.sos_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.home_fragment, SosFragment.newInstance()).commit();
+            }
+        });
+        view.findViewById(R.id.call_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.home_fragment, CallFragment.newInstance()).commit();
+            }
+        });
     }
 }

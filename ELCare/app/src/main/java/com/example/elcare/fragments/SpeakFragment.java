@@ -32,12 +32,14 @@ import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.watson.assistant.v1.model.Intent;
 import com.ibm.watson.assistant.v2.Assistant;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
+import com.ibm.watson.assistant.v2.model.RuntimeIntent;
 import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
@@ -55,7 +57,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.List;
 
@@ -84,6 +88,9 @@ public class SpeakFragment extends Fragment {
     private SessionResponse session;
     private String sessionId;
     private final String assID = "3396bbc9-b863-416c-ae9d-0881d31ab73d";
+
+    private boolean askingInput = false;
+    private String inputAction = null;
 
     private class AskWatsonTask extends AsyncTask<String, Void, String>{
 
@@ -118,6 +125,9 @@ public class SpeakFragment extends Fragment {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return "Something went wrong..";
+            } catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+                return "Something went wrong...";
             }
         }
 
@@ -164,18 +174,10 @@ public class SpeakFragment extends Fragment {
         }
     }
 
-    private class ConverseTask extends AsyncTask<String, Void, List<RuntimeResponseGeneric>>{
+    private class ConverseTask extends AsyncTask<String, Void, List>{
 
         @Override
         protected List<RuntimeResponseGeneric> doInBackground(String... strings) {
-//            Authenticator auth = new IamAuthenticator("5iKnzcjGqkjGxXJd8BSPDJ0-bS0wvZ5Q7QmC2d7LSOKn");
-//            com.ibm.watson.assistant.v2.Assistant service = new Assistant("2020-06-13", auth);
-//            final String assID = "3396bbc9-b863-416c-ae9d-0881d31ab73d";
-//
-//            // create session
-//            CreateSessionOptions op = new CreateSessionOptions.Builder(assID).build();
-//            SessionResponse session = service.createSession(op).execute().getResult();
-//            String sessionId = session.getSessionId();
 
             com.ibm.watson.assistant.v2.model.MessageInput input = new MessageInput.Builder()
                     .text(strings[0])
@@ -192,20 +194,44 @@ public class SpeakFragment extends Fragment {
             // Print the output from dialog, if any. Assumes a single text response.
             List<RuntimeResponseGeneric> responseGeneric = response.getOutput().getGeneric();
 
+            List<RuntimeIntent> intents = response.getOutput().getIntents();
+
 //            DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
 //            assService.deleteSession(delOp).execute();
-            return responseGeneric;
+            List list = Arrays.asList(responseGeneric, intents);
+            return list;
         }
 
         @Override
-        protected void onPostExecute(List<RuntimeResponseGeneric> responseGeneric) {
-            super.onPostExecute(responseGeneric);
+        protected void onPostExecute(List list) {
+            super.onPostExecute(list);
 
             try {
+                List<RuntimeResponseGeneric> responseGeneric = (List<RuntimeResponseGeneric>) list.get(0);
+                List<RuntimeIntent> intents = (List<RuntimeIntent>) list.get(1);
+                String intent = intents.get(0).intent();
+
+                Log.d("INTENT", "onPostExecute: " + intent);
+
                 if(responseGeneric.size() > 0) {
                     String[] responseList = responseGeneric.get(0).text().split("\n");
                     for (String res : responseList){
-                        addChat(true, res);
+                        if(res.contains("###")){
+                            switch(res){
+                                case "###CONTACT_EMERGENCY":
+                                    askingInput = true;
+                                    inputAction = "EMERGENCY";
+                                    break;
+                            }
+                        }else{
+                            addChat(true, res);
+                        }
+                    }
+                    // do simple input logic here
+                    if(askingInput){
+                        if(intent.equals("yes") && inputAction.equals("EMERGENCY")){
+                            raiseEmergency();
+                        }
                     }
                 }
             }catch(Exception e){
@@ -317,28 +343,6 @@ public class SpeakFragment extends Fragment {
     }
 
 
-    // convert mp4 file to mp3
-    private void convertFile(){
-
-        String recordPath = getActivity().getExternalFilesDir("/").getAbsolutePath();
-        recordFilePath = "tmp.mp4";
-
-        IConvertCallback callback = new IConvertCallback() {
-            @Override
-            public void onSuccess(File convertedFile) {
-                // everything good
-                Log.d("DEBUG", "onSuccess: file converted" + convertedFile.getAbsolutePath());
-            }
-            @Override
-            public void onFailure(Exception error) {
-                // Oops! Something went wrong
-            }
-        };
-
-        AndroidAudioConverter.with(getContext()).setFile(new File(recordPath + "/" + recordFilePath)).setFormat(AudioFormat.MP3)
-                .setCallback(callback).convert();
-    }
-
     private void stopRecording(){
         Log.d("DEBUG", "stopRecording: stopped recording");
         recorder.stop();
@@ -372,7 +376,9 @@ public class SpeakFragment extends Fragment {
         recorder.start();
     }
 
-
+    private void raiseEmergency(){
+        getFragmentManager().beginTransaction().replace(R.id.home_fragment, SosFragment.newInstance()).commit();
+    }
 
     private boolean checkPermission(){
         if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED

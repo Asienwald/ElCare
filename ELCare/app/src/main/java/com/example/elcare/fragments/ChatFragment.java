@@ -27,6 +27,7 @@ import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
+import com.ibm.watson.assistant.v2.model.RuntimeIntent;
 import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
@@ -40,6 +41,7 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ChatFragment extends Fragment {
@@ -58,6 +60,9 @@ public class ChatFragment extends Fragment {
     //private SessionResponse session;
     private String sessionId;
     private final String assID = "3396bbc9-b863-416c-ae9d-0881d31ab73d";
+
+    private boolean askingInput = false;
+    private String inputAction = null;
 
 
     private class AnalyseToneTask extends AsyncTask<String, Void, List>{
@@ -86,7 +91,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    private class ConverseTask extends AsyncTask<String, Void, List<RuntimeResponseGeneric>>{
+    private class ConverseTask extends AsyncTask<String, Void, List>{
 
         @Override
         protected List<RuntimeResponseGeneric> doInBackground(String... strings) {
@@ -106,26 +111,49 @@ public class ChatFragment extends Fragment {
             // Print the output from dialog, if any. Assumes a single text response.
             List<RuntimeResponseGeneric> responseGeneric = response.getOutput().getGeneric();
 
+            List<RuntimeIntent> intents = response.getOutput().getIntents();
+
 //            DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
 //            assService.deleteSession(delOp).execute();
-            return responseGeneric;
+            List list = Arrays.asList(responseGeneric, intents);
+            return list;
         }
 
         @Override
-        protected void onPostExecute(List<RuntimeResponseGeneric> responseGeneric) {
-            super.onPostExecute(responseGeneric);
+        protected void onPostExecute(List list) {
+            super.onPostExecute(list);
 
             try {
+                List<RuntimeResponseGeneric> responseGeneric = (List<RuntimeResponseGeneric>) list.get(0);
+                List<RuntimeIntent> intents = (List<RuntimeIntent>) list.get(1);
+                String intent = intents.get(0).intent();
+
+                Log.d("INTENT", "onPostExecute: " + intent);
+
                 if(responseGeneric.size() > 0) {
                     String[] responseList = responseGeneric.get(0).text().split("\n");
                     for (String res : responseList){
-                        addChat(true, res);
+                        if(res.contains("###")){
+                            switch(res){
+                                case "###CONTACT_EMERGENCY":
+                                    askingInput = true;
+                                    inputAction = "EMERGENCY";
+                                    break;
+                            }
+                        }else{
+                            addChat(true, res);
+                        }
+                    }
+                    // do simple input logic here
+                    if(askingInput){
+                        if(intent.equals("yes") && inputAction.equals("EMERGENCY")){
+                            raiseEmergency();
+                        }
                     }
                 }
             }catch(Exception e){
                 addChat(true, "Sorry, I don't understand.");
             }
-
         }
     }
 
@@ -221,6 +249,10 @@ public class ChatFragment extends Fragment {
                 task.execute(msg);
             }
         });
+    }
+
+    private void raiseEmergency(){
+        getFragmentManager().beginTransaction().replace(R.id.home_fragment, SosFragment.newInstance()).commit();
     }
 
     private void addChat(boolean byJolene, String msg){

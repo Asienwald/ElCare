@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -149,6 +150,10 @@ public class MonitorFragment extends Fragment {
         }
     }
 
+    private void raiseEmergency(){
+        getFragmentManager().beginTransaction().replace(R.id.home_fragment, SosFragment.newInstance()).commit();
+    }
+
     private void updateTemp(String temperature, String humidity){
         temp.setText(temperature + "C " + humidity + "%");
     }
@@ -158,6 +163,8 @@ public class MonitorFragment extends Fragment {
             motionStatus.setTextColor(getResources().getColor(R.color.green));
         }else{
             motionStatus.setTextColor(getResources().getColor(R.color.red));
+            Toast.makeText(getContext(), "MOTION NOT OK", Toast.LENGTH_SHORT).show();
+            raiseEmergency();
         }
         motionStatus.setText(status);
     }
@@ -167,6 +174,8 @@ public class MonitorFragment extends Fragment {
             soundStatus.setTextColor(getResources().getColor(R.color.green));
         }else{
             soundStatus.setTextColor(getResources().getColor(R.color.red));
+            Toast.makeText(getContext(), "SOUND NOT OK", Toast.LENGTH_SHORT).show();
+            raiseEmergency();
         }
         soundStatus.setText(status);
     }

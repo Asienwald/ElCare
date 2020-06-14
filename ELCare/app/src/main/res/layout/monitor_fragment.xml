@@ -68,8 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="36.7C"
+                android:text="TempC + Humidity%"
                 android:textColor="@color/black"/>
+
 
             <TextView
                 android:id="@+id/temp_status"
@@ -86,7 +87,8 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
         
     </LinearLayout>
 
@@ -125,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="OK"
+                android:text="Status"
                 android:textColor="@color/light_green"/>
 
             <TextView
@@ -143,7 +145,8 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
 
     </LinearLayout>
 
@@ -182,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="OK"
+                android:text="Status"
                 android:textColor="@color/light_green"/>
 
             <TextView
@@ -200,7 +203,8 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
 
     </LinearLayout>
 

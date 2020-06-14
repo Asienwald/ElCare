@@ -2,6 +2,7 @@ package com.example.elcare.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -73,7 +75,7 @@ public class SpeakFragment extends Fragment {
 
     private ArrayList<ChatBox> chatList = new ArrayList<>();
 
-    private final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private final int REQUEST_CODE = 200;
     private boolean micBtnPressed;
     private MediaRecorder recorder;
     private String recordFilePath;
@@ -93,7 +95,7 @@ public class SpeakFragment extends Fragment {
         @Override
         protected String doInBackground(String... Strings) {
             String recordPath = getActivity().getExternalFilesDir("/").getAbsolutePath();
-            recordFilePath = "tmp.ogg";
+            recordFilePath = "tmp.webm";
 
             Authenticator authenticator = new IamAuthenticator("Sayq6MpAznHMEdw7RxYuzyLKuCCReo9rhp42WpjHVRsZ");
             SpeechToText service = new SpeechToText(authenticator);
@@ -101,10 +103,12 @@ public class SpeakFragment extends Fragment {
 
             File audio = new File(recordPath + "/" + recordFilePath);
             try {
-                RecognizeOptions options = new RecognizeOptions.Builder().audio(audio).contentType("audio/ogg").build();
+                RecognizeOptions options = new RecognizeOptions.Builder().audio(audio)
+                        .contentType("audio/webm")
+                        .build();
 
                 SpeechRecognitionResults transcript = service.recognize(options).execute().getResult();
-//            Log.d("DEBUG", "speechToText: " + transcript.toString());
+                Log.d("DEBUG", "speechToText: " + transcript.toString());
 
                 String saidText = transcript.getResults().get(0).getAlternatives().get(0).getTranscript();
 
@@ -308,20 +312,6 @@ public class SpeakFragment extends Fragment {
             }
         });
 
-//        Thread startSession = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Authenticator auth = new IamAuthenticator("5iKnzcjGqkjGxXJd8BSPDJ0-bS0wvZ5Q7QmC2d7LSOKn");
-//                assService = new Assistant("2020-06-13", auth);
-//                CreateSessionOptions op = new CreateSessionOptions.Builder(assID).build();
-//                SessionResponse session = assService.createSession(op).execute().getResult();
-//
-//                // init first text from jolene
-//                ConverseTask task = new ConverseTask();
-//                task.execute("hello");
-//            }
-//        });
-//        startSession.start();
         StartSessionTask task = new StartSessionTask();
         task.execute();
     }
@@ -355,6 +345,7 @@ public class SpeakFragment extends Fragment {
         recorder.release();
         recorder = null;
 
+
         AskWatsonTask task = new AskWatsonTask();
         task.execute();
     }
@@ -362,12 +353,13 @@ public class SpeakFragment extends Fragment {
     private void startRecording(){
         Log.d("DEBUG", "startRecording: start recording");
         String recordPath = getActivity().getExternalFilesDir("/").getAbsolutePath();
-        recordFilePath = "tmp.ogg";
+        recordFilePath = "tmp.webm";
+        final String filePath = recordPath + "/" + recordFilePath;
 
 
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.OGG);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.WEBM);
         recorder.setOutputFile(recordPath + "/" + recordFilePath);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.OPUS);
 
@@ -381,6 +373,7 @@ public class SpeakFragment extends Fragment {
     }
 
 
+
     private boolean checkPermission(){
         if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED){
@@ -388,7 +381,8 @@ public class SpeakFragment extends Fragment {
 
         }else{
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO,
-                                                                            Manifest.permission.INTERNET}, REQUEST_RECORD_AUDIO_PERMISSION);
+                                                                            Manifest.permission.INTERNET},
+                    REQUEST_CODE);
             return false;
         }
     }

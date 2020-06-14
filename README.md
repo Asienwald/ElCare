@@ -1,6 +1,6 @@
 # ELCare
 
-By Team `stonks`: comprised of
+By Team `LastPlace`: comprised of
 1. [Loh Kar Wei: Asienwald](https://github.com/Asienwald): Development of Android App functionality, app design and Watson API Integration
 2. [Tan Jia Wei: Hayashion](https://github.com/Hayashion): Designed optimal course of action for emergencies, Video Demonstration and Watson API Integration
 3. [Chan Zun Mun Terence: Hackin7](https://github.com/Hackin7): IoT functionality, setting up of central IoT server and web layout
@@ -36,7 +36,7 @@ We have designed the app ELCare to help the elderly in emergencies. Through it's
 
 ## Demo video
 
-![Watch the video]()
+![Watch the video](https://youtu.be/M_g4lS14vlk)
 
 ## The architecture
 
@@ -55,6 +55,7 @@ We have designed the app ELCare to help the elderly in emergencies. Through it's
 2. Open `Chat` or `Speak` and communicate with Jolene
 3. Jolene will be able to identify the help needed
 4. For related individuals, they can access the `Monitor` section on the app, or use the website to monitor the elderly's situation
+    a. They can also choose to receive notifications through email in the event of any emergency situations. First responders would also be notified through such communication platforms.
 
 ### Long description
 
@@ -62,7 +63,7 @@ We have designed the app ELCare to help the elderly in emergencies. Through it's
 
 ## Getting started
 ### Setting up the Application
-You can download the app [here](). Alternatively, you can compile it in Android studio, but take note to set the appropriate APIU
+You can download the app [here](). Alternatively, you can compile it in Android studio, but take note to set the appropriate API
 ### Setting up the Server
 To set up the server (acting as a bridge between the IoT device and the app)
 1. Copy `API_KEYS_sample.py` to API_KEYS.py and fill in your API Keys and URLs for SendGrid, IBM STT and IBM Tone Analyzers
@@ -72,7 +73,7 @@ docker run -p 5000:5000 <container-id>`
     * If you set up a server, make sure you can connect to it through https
 3. If you are checking the dashboard, or using the device monitoring feature, login with the default credentials
     * Username: `GodMode`
-    * Password: `yeshucpo` 
+    * Password: `yeshucpo`
 
 ### Setting up sample IOT Device
 1. Use an ESP8266. 
@@ -96,6 +97,9 @@ docker run -p 5000:5000 <container-id>`
     - Includes Tensorflow.js and PoseNet
 - ESP8266(NodeMCU) and Arduino Programming Language
 
+## Possible Improvements
+1. We could interface with the actual first responder API to better notify first responders to help the elderly
+2. We could have implemented a database to store information more effectively
 
 ## Images
 ### App Images
@@ -118,8 +122,6 @@ docker run -p 5000:5000 <container-id>`
 #### Chat Page
 if it's not convenient to speak
 ![](https://i.imgur.com/RmgFdST.png)
-
-
 
 ### Sample IOT Device
 ![](https://i.imgur.com/8VpKMFP.png)

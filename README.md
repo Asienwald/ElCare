@@ -63,7 +63,7 @@ We have designed the app ELCare to help the elderly in emergencies. Through it's
 
 ## Getting started
 ### Setting up the Application
-You can download the app [here](). Alternatively, you can compile it in Android studio, but take note to set the appropriate API
+You can download the app [here](https://github.com/Asienwald/SCDF-x-IBM-Lifesavers-Innovation/releases/tag/1.0). Alternatively, you can compile it in Android studio, but take note to set the appropriate API
 ### Setting up the Server
 To set up the server (acting as a bridge between the IoT device and the app)
 1. Copy `API_KEYS_sample.py` to API_KEYS.py and fill in your API Keys and URLs for SendGrid, IBM STT and IBM Tone Analyzers
@@ -71,16 +71,20 @@ To set up the server (acting as a bridge between the IoT device and the app)
 docker run -p 5000:5000 <container-id>`
     * Alternatively, you can use the currently hosted server at [https://scdf-x-ibm-web.herokuapp.com/](https://scdf-x-ibm-web.herokuapp.com/) (This url is hardcoded in many aspects of this system).
     * If you set up a server, make sure you can connect to it through https
-3. If you are checking the dashboard, or using the device monitoring feature, login with the default credentials
+3. If you are checking the dashboard, login with the default credentials
     * Username: `GodMode`
     * Password: `yeshucpo`
+
+#### Setting up an external device to monitor
+An external device (eg. old smartphone/ laptop) can act as a second set of microphone and camera to detect any falls and loud sounds.
+1. 
 
 ### Setting up sample IOT Device
 1. Use an ESP8266. 
 2. Connect a sound sensor to GPIO 5, and a PIR sensor to GPIO 4. 
-8. Provide power to all components
-9. Fill in the Wifi AP Name and Password and replace the server url with your own. Upload the sketch in [`IOT Hardware/SimpleMonitoring/`](https://github.com/Asienwald/SCDF-x-IBM-Lifesavers-Innovation/tree/master/IOT%20Hardware/SimpleMonitoring)
-10. To use the temperature sensor, connect a DHT22 sensor to GPIO 0, and uncomment the appropriate  lines of code
+3. Provide power to all components
+4. Fill in the Wifi AP Name and Password and replace the server url with your own. Upload the sketch in [`IOT Hardware/SimpleMonitoring/`](https://github.com/Asienwald/SCDF-x-IBM-Lifesavers-Innovation/tree/master/IOT%20Hardware/SimpleMonitoring)
+5. To use the temperature sensor, connect a DHT22 sensor to GPIO 0, and uncomment the appropriate  lines of code
 
 
 ## Built with

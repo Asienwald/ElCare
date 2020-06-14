@@ -68,8 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="36.7C"
+                android:text="TempC + Humidity%"
                 android:textColor="@color/black"/>
+
 
             <TextView
                 android:id="@+id/temp_status"
@@ -77,16 +78,18 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="@string/monitoring"
-                android:textColor="@color/light_green"
+                android:textColor="@color/green"
                 android:layout_weight="1"/>
 
 
         </LinearLayout>
 
         <Switch
+            android:id="@+id/temp_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
         
     </LinearLayout>
 
@@ -125,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="OK"
+                android:text="Status"
                 android:textColor="@color/light_green"/>
 
             <TextView
@@ -134,16 +137,18 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="@string/monitoring"
-                android:textColor="@color/light_green"
+                android:textColor="@color/green"
                 android:layout_weight="1"/>
 
 
         </LinearLayout>
 
         <Switch
+            android:id="@+id/motion_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
 
     </LinearLayout>
 
@@ -182,7 +187,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="OK"
+                android:text="Status"
                 android:textColor="@color/light_green"/>
 
             <TextView
@@ -190,17 +195,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="@string/inactive"
-                android:textColor="@color/red"
+                android:text="@string/monitoring"
+                android:textColor="@color/green"
                 android:layout_weight="1"/>
 
 
         </LinearLayout>
 
         <Switch
+            android:id="@+id/sound_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:checked="true"/>
 
     </LinearLayout>
 

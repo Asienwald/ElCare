@@ -65,7 +65,7 @@ def page_not_found(e):
 
 
 ## Auxilary ######################################################
-from Sendgrid import *
+from notify import *
 def dateData():
     now = datetime.datetime.now()
     now.strftime("%Y-%m-%d %H:%M:%S")
@@ -87,7 +87,8 @@ def main():
     IOTView = {
         "sound" :"Detected" if hardwareData["sound"] == "1" else "Not Detected", 
         "motion" :"Detected" if hardwareData["sensor"] == "1" else "Not Detected", 
-        "temperature" : str(hardwareData["temperature"])
+        "temperature" : str(hardwareData["temperature"]), 
+		"humidity" : str(hardwareData["humidity"])+"%", 
         }
     return flask.render_template('dashboard.html',
                                  IOTView=IOTView,
@@ -144,7 +145,7 @@ def getSounds():
 ## Hardware ######################################################
 sensed = 0 # Number of sensor times
 prevSensor = 1
-hardwareData = {"sound": "1", "sensor": "0", "humidity": "33.00", "temperature": "27.00"}
+hardwareData = {"sound": "0", "sensor": "0", "humidity": "75.00", "temperature": "27.00"}
 @app.route('/hardware', methods=['GET','POST'])
 def hardware():
     global hardwareData

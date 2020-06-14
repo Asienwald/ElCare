@@ -10,7 +10,9 @@ TA_API_ENDPOINT = "https://api.us-south.tone-analyzer.watson.cloud.ibm.com/insta
 TA_API_KEY = "UcpzpuBCWtH8Pvte0VRM5D4QuT5Xek0Fw-QqWVLXJyl-"
 
 #### Sendgrid ##############
-SENDGRID_API_KEY='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'
+SENDGRID_API_KEY='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'
+
+
 '''
 curl -X GET -u "apikey:UcpzpuBCWtH8Pvte0VRM5D4QuT5Xek0Fw-QqWVLXJyl-" \
 "https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/ac0ebb12-0c6a-49bf-9726-0ece18c5fb13/v3/tone?version=2017-09-21

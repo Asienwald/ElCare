@@ -11,8 +11,8 @@ from sendgrid.helpers.mail import Mail
 apikey = SENDGRID_API_KEY
 sg = SendGridAPIClient(apikey)#apiKeyos.environ.get('SENDGRID_API_KEY'))
 
-def notify(subject,content,fromEmail="elcare@email.com", toEmail="zunmun@gmail.com"):
-    print("Notifying", fromEmail, toEmail)
+def notify(subject,content,fromEmail="sd2green2011@gmail.com", toEmail="technologic190@gmail.com"):
+    print("Notifying", fromEmail, "=>", toEmail)
     message = Mail(
         from_email=fromEmail,
         to_emails=toEmail,
@@ -30,4 +30,6 @@ def notify(subject,content,fromEmail="elcare@email.com", toEmail="zunmun@gmail.c
         print("Error:",e)
 
 if __name__ == '__main__':
+    #sms("helo")
     notify("hello","123")
+    pass

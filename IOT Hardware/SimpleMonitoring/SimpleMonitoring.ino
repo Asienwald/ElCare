@@ -25,8 +25,8 @@ ESP8266WiFiMulti WiFiMulti;
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 //Variables
-float hum=33;  //Stores humidity value
-float temp=26; //Stores temperature value
+float hum=77;  //Stores humidity value
+float temp=29; //Stores temperature value
 void tempSensor(){
     hum = dht.readHumidity();
     temp= dht.readTemperature(false);
@@ -73,7 +73,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("", "");
+  WiFiMulti.addAP("-", "");
   
 }
 

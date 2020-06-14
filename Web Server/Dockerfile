@@ -9,6 +9,7 @@ RUN apt-get install -y --no-install-recommends python3 python3-pip
 RUN pip3 install flask flask_login requests
 RUN pip3 install setuptools
 RUN pip3 install sendgrid dnspython 
+RUN pip3 install textblob
 
 COPY . .
 

@@ -46,7 +46,7 @@ def login():
             login_user(mainuser)
             return flask.redirect(flask.url_for('main'))
         else:
-            return abort(401)
+            return flask.abort(401)
     else:
         return flask.render_template('login.html')
 
@@ -91,8 +91,8 @@ def main():
         }
     return flask.render_template('dashboard.html',
                                  IOTView=IOTView,
-                                 falls=fall,
-                                 sounds=sounds)
+                                 falls=fall[::-1],
+                                 sounds=sounds[::-1])
 
 @app.route('/monitoring')
 @login_required
@@ -111,10 +111,12 @@ def fallen():
 @app.route('/web/get/fall', methods=['GET'])
 def getFallen():
     return json.dumps(fall)
+@app.route('/web/assets/<asset>')
+def getAsset(asset):
+    return flask.send_from_directory('./static/',asset)
 
 ## Sound ##############################################################
 import IBMservice
-
 sounds = []
 @app.route('/web/post/sound', methods=['POST'])
 def soundAnalysis():
@@ -123,12 +125,15 @@ def soundAnalysis():
         audioData = audio.stream.read()
         textData = IBMservice.SpeechToText(audioData)
         toneData = IBMservice.ToneAnalyser(textData["text"])
-        
+
+        #blob = TextBlob(textData["text"])
+        #subjectivity = blob.sentiment.subjectivity
+        #print(blob.sentiment)
         
         #print(flask.request.files)
     #print(flask.request)
     data = dateData()
-    sounds.append({"spokenText":textData,"toneData":toneData, "dateData":data})
+    sounds.append({"spokenText":textData,"toneData":toneData,"dateData":data})
     if len(sounds)%5==0: notify("ELCare Sound Report","There have been 5 new cases of loud sounds. Find out more at https://scdf-x-ibm-web.herokuapp.com/")
     return 'hello'
 

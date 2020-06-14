@@ -29,4 +29,11 @@ def ToneAnalyser(text):
                       data=json.dumps({"text":text}))
     #print(r.text)
     data = json.loads(r.text)
-    return {"fullData":data}
+    try:
+        toneVal = data["document_tone"]["tones"][0]["score"]
+        toneName = data["document_tone"]["tones"][0]["tone_name"]
+    except Exception as e:
+        print("Tone analyser problem: ",e)
+        toneVal = "-"
+        toneName = "-"
+    return {"fullData":data, "toneVal":toneVal, "toneName":toneName}

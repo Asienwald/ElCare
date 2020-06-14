@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html>
 <head>
 	<title>ELCare Monitoring</title>
@@ -44,20 +45,35 @@
 
 		<div class="card project" id="online-monitoring">
 			<div class="card-header">Online Monitoring Data</div>
-			<div class="card-body" style="max-height:80vh;overflow-y: auto;">
+			<div class="card-body" >
 				<b>Fall Detected (Through Camera)</b>
-				<ul>
+				<div style="max-height:30vh;overflow-y: auto;"><ul>
 					{% for fall in falls %}
 					<li>{{fall["text"]}}</li>
 					{% endfor %}
-				</ul>
+				</ul></div>
 				
 				<b>Loud Sounds Detected</b>
-				<ul>
+				<div style="max-height:30vh;overflow-y: auto;">
+				<br>
+				<table class="table">
+					<thead>
+						<tr>
+						  <th scope="col">Date</th>
+						  <th scope="col">Tone Value</th>
+						  <th scope="col">Tone</th>
+						</tr>
+					</thead>
+				
 					{% for sound in sounds %}
-					<li>{{sound["dateData"]["text"]}}</li>
+					<tr>
+						<td>{{sound["dateData"]["text"]}} </td>
+						<td>{{sound["toneData"]["toneVal"]}}</td>
+						<td>{{sound["toneData"]["toneName"]}}</td>
+					</tr>
 					{% endfor %}
-				</ul>
+				</table>
+				</ul></div>
 				
 			</div>
 		</div>
@@ -85,8 +101,8 @@
 						<td><img class="icon" src="{{url_for('static', filename='icons8-microphone-64.png')}}"/> Temperature:</td>
 						<td>{{IOTView["temperature"]}}</td>
 					</tr>
-			</div>
 			</table>
+			</div>
 		</div>
 
 		

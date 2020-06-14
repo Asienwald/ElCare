@@ -2,7 +2,7 @@
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
     // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/F7q56wJxy/";
+    const URL = "/web/assets/";//https://teachablemachine.withgoogle.com/models/F7q56wJxy/";
     let model, webcam, ctx, labelContainer, maxPredictions;
 
     async function init() {

@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,15 +49,20 @@ import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.ibm.watson.text_to_speech.v1.TextToSpeech;
+import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.text_to_speech.v1.websocket.BaseSynthesizeCallback;
 import com.ibm.watson.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -278,13 +284,17 @@ public class SpeakFragment extends Fragment {
                 Thread deleteSess = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
-                        assService.deleteSession(delOp).execute();
+                        if(sessionId != null){
+                            DeleteSessionOptions delOp = new DeleteSessionOptions.Builder(assID, sessionId).build();
+                            assService.deleteSession(delOp).execute();
+                        }
                     }
                 });
                 deleteSess.start();
 
-                getFragmentManager().beginTransaction().replace(R.id.home_fragment, MainFragment.newInstance()).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                transaction.replace(R.id.home_fragment, MainFragment.newInstance()).commit();
             }
         });
 
@@ -302,7 +312,9 @@ public class SpeakFragment extends Fragment {
         view.findViewById(R.id.call_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.home_fragment, CallFragment.newInstance()).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.home_fragment, CallFragment.newInstance()).commit();
             }
         });
 

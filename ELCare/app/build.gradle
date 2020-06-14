@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.ibm.watson:assistant:8.5.0'
     implementation 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
     implementation 'com.github.adrielcafe:AndroidAudioRecorder:0.3.0'
+    implementation 'com.ibm.watson:text-to-speech:8.5.0'
 }

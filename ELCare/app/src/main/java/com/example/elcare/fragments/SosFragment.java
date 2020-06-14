@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.elcare.R;
 
@@ -49,7 +50,9 @@ public class SosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("DEBUG", "clicked");
-                getFragmentManager().beginTransaction().replace(R.id.home_fragment, MainFragment.newInstance()).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                transaction.replace(R.id.home_fragment, MainFragment.newInstance()).commit();
             }
         });
 

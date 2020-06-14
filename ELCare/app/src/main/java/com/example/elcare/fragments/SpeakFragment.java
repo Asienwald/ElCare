@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.elcare.Action;
 import com.example.elcare.R;
 import com.example.elcare.adapters.ChatAdapter;
 import com.example.elcare.cards.ChatBox;
@@ -223,12 +224,14 @@ public class SpeakFragment extends Fragment {
                     String[] responseList = responseGeneric.get(0).text().split("\n");
                     for (String res : responseList){
                         if(res.contains("###")){
-                            switch(res){
-                                case "###CONTACT_EMERGENCY":
-                                    askingInput = true;
-                                    inputAction = "EMERGENCY";
-                                    break;
-                            }
+//                            switch(res){
+//                                case "###CONTACT_EMERGENCY":
+//                                    askingInput = true;
+//                                    inputAction = "EMERGENCY";
+//                                    break;
+//                            }
+                            Action action = new Action();
+                            action.action(res, getFragmentManager().beginTransaction());
                         }else{
                             addChat(true, res);
                         }

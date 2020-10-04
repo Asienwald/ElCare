@@ -1,5 +1,5 @@
 # ELCare
-
+__Submission for SCDF-x-IBM-Lifesavers-Innovation 2020 48h Hackathon__  
 By Team `Last Place`: comprised of
 1. [Loh Kar Wei: Asienwald](https://github.com/Asienwald): Development of Android App functionality, app design and Watson API Integration
 2. [Tan Jia Wei: Hayashion](https://github.com/Hayashion): Designed optimal course of action for emergencies, Video Demonstration and Watson API Integration

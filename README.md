@@ -117,6 +117,10 @@ An external device (eg. old smartphone/ laptop) can act as a second set of micro
 4. We could have implemented a database to store information more effectively
 
 
+## Design Draft
+[Link to Design Draft here](https://azien437297.invisionapp.com/prototype/Elcare-Design-Draft-ckfw6urrr005il00151hr9qp2)
+
+
 
 ## Images
 ### App Images
